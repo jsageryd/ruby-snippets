@@ -8,10 +8,9 @@ class INIFile
 	end
 
 	def load(filename)
-		f = File.open(filename, 'r')
-		begin
+		File.open(filename, 'r') do |io|
 			section = nil
-			f.each_line do |line|
+			io.each_line do |line|
 				next if line =~ /^\s*#|^\s*$/
 				if s = line[/^\s*\[(.*)\]\s*$/, 1]
 					section = s.to_sym
@@ -23,24 +22,19 @@ class INIFile
 				end
 			end
 			self
-		ensure
-			f.close if f
 		end
 	end
 
 	def save(filename)
-		f = File.open(filename, 'w')
-		begin
+		File.open(filename, 'w') do |io|
 			@data.each do |section, datum|
-				f.puts unless f.pos == 0
-				f.puts "[#{section.to_s}]"
+				io.puts unless io.pos == 0
+				io.puts "[#{section.to_s}]"
 				datum.each do |key, value|
-					f.puts "\t#{key.to_s} = #{value}"
+					io.puts "\t#{key.to_s} = #{value}"
 				end
 			end
 			self
-		ensure
-			f.close if f
 		end
 	end
 
