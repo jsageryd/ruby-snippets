@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -w
+# encoding: utf-8
 
 # Save to file
 File.open('my_file', 'w') do |io|

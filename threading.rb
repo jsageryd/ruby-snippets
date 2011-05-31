@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -w
+# encoding: utf-8
 
 threads = []
 5.times do |n|
