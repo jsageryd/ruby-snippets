@@ -7,7 +7,7 @@ require 'ostruct'
 class OptionHandler
   def self.parse(args)
     options = OpenStruct.new
-    opts = OptionParser.new do |o|
+    op = OptionParser.new do |o|
       o.banner = 'Usage: ./options.rb [options]'
       o.separator 'Example: ./options.rb -f -b \'My option\' -B -a foo,bar'
       o.separator ''
@@ -33,7 +33,13 @@ class OptionHandler
         options.array = array
       end
     end
-    opts.parse!(args)
+    begin
+      op.parse!(args)
+    rescue OptionParser::ParseError => e
+      puts e
+      puts op
+      exit 1
+    end
     options
   end
 end
