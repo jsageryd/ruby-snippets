@@ -7,20 +7,20 @@ require 'ostruct'
 class OptionHandler
 	def self.parse(args)
 		options = OpenStruct.new
-		opts = OptionParser.new do |opts|
-			opts.banner = 'Usage: ./options.rb [options]'
-			opts.separator 'Example: ./options.rb -f -b \'My option\' -B -a foo,bar'
-			opts.separator ''
+		opts = OptionParser.new do |o|
+			o.banner = 'Usage: ./options.rb [options]'
+			o.separator 'Example: ./options.rb -f -b \'My option\' -B -a foo,bar'
+			o.separator ''
 
-			opts.on('-f', '--foo', 'Foo option') do |foo|
+			o.on('-f', '--foo', 'Foo option') do |foo|
 				options.foo = true
 			end
 
-			opts.on('-b', '--bar SOMETHING', 'Bar mandatory argument') do |bar|
+			o.on('-b', '--bar SOMETHING', 'Bar mandatory argument') do |bar|
 				options.bar = bar
 			end
 
-			opts.on('-B', '--baz [SOMETHING]', 'Baz optional argument') do |baz|
+			o.on('-B', '--baz [SOMETHING]', 'Baz optional argument') do |baz|
 				if baz then
 					options.baz = baz
 				else
@@ -29,7 +29,7 @@ class OptionHandler
 				end
 			end
 
-			opts.on('-a', '--array foo,bar', Array, 'Array of values') do |array|
+			o.on('-a', '--array foo,bar', Array, 'Array of values') do |array|
 				options.array = array
 			end
 		end
