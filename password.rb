@@ -1,5 +1,7 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/env ruby
 # encoding: utf-8
+
+$VERBOSE = true
 
 print 'Password: '
 begin
