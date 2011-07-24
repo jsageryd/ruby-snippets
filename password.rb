@@ -3,11 +3,11 @@
 
 print 'Password: '
 begin
-	system 'stty -echo'
-	password = STDIN.gets.chomp
-	puts
+  system 'stty -echo'
+  password = STDIN.gets.chomp
+  puts
 ensure
-	system 'stty echo'
+  system 'stty echo'
 end
 
 puts "Password is '#{password}'."

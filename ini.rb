@@ -2,50 +2,50 @@
 # encoding: utf-8
 
 class INIFile
-	attr_reader :data
+  attr_reader :data
 
-	def initialize
-		@data = {}
-	end
+  def initialize
+    @data = {}
+  end
 
-	def load(filename)
-		File.open(filename, 'r') do |io|
-			section = nil
-			io.each_line do |line|
-				next if line =~ /^\s*#|^\s*$/
-				if s = line[/^\s*\[(.*)\]\s*$/, 1]
-					section = s.to_sym
-					@data[section] ||= {}
-				else
-					key = line[/^\s*(.+?)\s*=/, 1]
-					value = line[/^\s*.+?\s*=\s*(.*)\s*$/, 1]
-					@data[section][key.to_sym] = value if section && key && value
-				end
-			end
-			self
-		end
-	end
+  def load(filename)
+    File.open(filename, 'r') do |io|
+      section = nil
+      io.each_line do |line|
+        next if line =~ /^\s*#|^\s*$/
+        if s = line[/^\s*\[(.*)\]\s*$/, 1]
+          section = s.to_sym
+          @data[section] ||= {}
+        else
+          key = line[/^\s*(.+?)\s*=/, 1]
+          value = line[/^\s*.+?\s*=\s*(.*)\s*$/, 1]
+          @data[section][key.to_sym] = value if section && key && value
+        end
+      end
+      self
+    end
+  end
 
-	def save(filename)
-		File.open(filename, 'w') do |io|
-			@data.each do |section, datum|
-				io.puts unless io.pos == 0
-				io.puts "[#{section.to_s}]"
-				datum.each do |key, value|
-					io.puts "\t#{key.to_s} = #{value}"
-				end
-			end
-			self
-		end
-	end
+  def save(filename)
+    File.open(filename, 'w') do |io|
+      @data.each do |section, datum|
+        io.puts unless io.pos == 0
+        io.puts "[#{section.to_s}]"
+        datum.each do |key, value|
+          io.puts "\t#{key.to_s} = #{value}"
+        end
+      end
+      self
+    end
+  end
 
-	def read(section, key)
-		@data[section.to_sym][key.to_sym] if section && key
-	end
+  def read(section, key)
+    @data[section.to_sym][key.to_sym] if section && key
+  end
 
-	def write(section, key, value)
-		(@data[section.to_sym] ||= {})[key.to_sym] = value
-	end
+  def write(section, key, value)
+    (@data[section.to_sym] ||= {})[key.to_sym] = value
+  end
 end
 
 ini = INIFile.new

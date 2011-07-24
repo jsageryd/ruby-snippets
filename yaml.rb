@@ -12,7 +12,7 @@ p loaded = YAML.load(yaml)
 # File save/load
 filename = 'my_file.yaml'
 File.open(filename, 'w') do |io|
-	YAML.dump(array, io)
+  YAML.dump(array, io)
 end
 loaded = YAML.load_file(filename)
 
