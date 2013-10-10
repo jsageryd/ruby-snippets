@@ -5,7 +5,7 @@ $VERBOSE = true
 
 class Colour
   def self.colourise(text, color)
-    "\e[##{color}m#{text}\e[0m"
+    "\e[#{color}m#{text}\e[0m"
   end
 
   def self.black(text); colourise text, 30; end
